@@ -1,6 +1,8 @@
+import times
+
 type PGoStrSlice = pointer
 
-proc genStrSlice():PGoStrSlice {.dynlib: "./strarr.so", importc: "genStrSlice".}
+proc genStrSlice(n:int):PGoStrSlice {.dynlib: "./strarr.so", importc: "genStrSlice".}
 proc `[]`(p: PGoStrSlice, i:int):cstring {.dynlib: "./strarr.so", importc: "getGoStrSliceVal".}
 proc len(p: PGoStrSlice):int {.dynlib: "./strarr.so", importc: "getGoStrSliceLen".}
 
@@ -11,7 +13,11 @@ proc `@`(p: PGoStrSlice):seq[cstring] =
     s[i] = p[i]
   return s
 
-block:
-  let sArr = @( genStrSlice() )
-  echo sArr
-  echo sArr[0]
+when isMainModule:
+  const length = 10000
+  let start = cpuTime()
+  let strSlice = @( genStrSlice(length) )
+  echo cpuTime() - start
+  echo strSlice.len
+  echo strSlice[0]
+  echo strSlice[length-1]

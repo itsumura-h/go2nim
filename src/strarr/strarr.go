@@ -2,6 +2,7 @@ package main
 
 import (
 	"C"
+	"strconv"
 	"unsafe"
 )
 
@@ -11,8 +12,11 @@ type PGoStrSlice = uintptr
 var boxInstances map[PGoStrSlice]*GoStrSlice
 
 //export genStrSlice
-func genStrSlice() PGoStrSlice {
-	s := GoStrSlice{"あい", "うえ", "おか"}
+func genStrSlice(n int) PGoStrSlice {
+	var s []string
+	for i := 0; i < n; i++ {
+		s = append(s, "ユーザー" + strconv.Itoa(i))
+	}
 
 	p := PGoStrSlice(unsafe.Pointer(&s))
 	if boxInstances == nil {

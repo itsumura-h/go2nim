@@ -14,4 +14,5 @@ proc `@`(p: PGoIntSlice):seq[int] =
 proc fib(n:int):seq[int] =
   return @(goFibo(n))
 
-echo fib(20)
+when isMainModule:
+  echo fib(20)

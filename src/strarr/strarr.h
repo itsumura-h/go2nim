@@ -68,7 +68,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-extern GoUintptr genStrSlice();
+extern GoUintptr genStrSlice(GoInt n);
 extern char* getGoStrSliceVal(GoUintptr p, GoInt i);
 extern GoInt getGoStrSliceLen(GoUintptr p);
 

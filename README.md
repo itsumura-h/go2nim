@@ -10,10 +10,12 @@ https://github.com/sivchari/go2nim
 go build -buildmode=c-shared -o fib.so fib.go
 nim c -r fib
 ```
+
 ```sh
 go build -buildmode=c-shared -o strarr.so strarr.go
 nim c -r strarr
 ```
+
 ```sh
 go build -buildmode=c-shared -o struct.so struct.go
 nim c -r struct
