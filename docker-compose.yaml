@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    tty: true
+    environment:
+      TZ: Asia/Tokyo
+    volumes:
+      - ./src:/go/src
