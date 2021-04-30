@@ -1,5 +1,4 @@
-type
-  PGoIntSlice = pointer
+type PGoIntSlice = pointer
 
 proc goFibo(n:int):PGoIntSlice {.dynlib: "./fib.so", importc: "fibo".}
 proc `[]`(p: PGoIntSlice, i:int):int {.dynlib: "./fib.so", importc: "getGoIntSliceVal".}

@@ -5,6 +5,10 @@ proc newUser(id:int, name:cstring):User {.dynlib: "./struct.so", importc: "NewUs
 proc id(p:User):int {.dynlib: "./struct.so", importc: "GetID".}
 proc name(p:User):cstring {.dynlib: "./struct.so", importc: "GetName".}
 
-let user = newUser(2, "abc")
+var user = newUser(1, "abc")
+echo user.id()
+echo user.name()
+
+user = newUser(2, "あいう")
 echo user.id()
 echo user.name()
