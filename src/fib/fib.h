@@ -69,8 +69,8 @@ extern "C" {
 #endif
 
 extern GoUintptr fibo(GoInt n);
-extern GoInt getSliceIntVal(GoUintptr p, GoInt i);
-extern GoInt getSliceLen(GoUintptr p);
+extern GoInt getGoIntSliceVal(GoUintptr p, GoInt i);
+extern GoInt getGoIntSliceLen(GoUintptr p);
 
 #ifdef __cplusplus
 }

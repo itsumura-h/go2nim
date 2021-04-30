@@ -1,16 +1,18 @@
 type
-  GoSlice = pointer
+  PGoIntSlice = pointer
 
-proc fibo(n:int):GoSlice {.dynlib: "./fib.so", importc: "fibo".}
-proc `[]`(p: GoSlice, i:int):int {.dynlib: "./fib.so", importc: "getSliceIntVal".}
-proc len(p: GoSlice):int {.dynlib: "./fib.so", importc: "getSliceLen".}
+proc goFibo(n:int):PGoIntSlice {.dynlib: "./fib.so", importc: "fibo".}
+proc `[]`(p: PGoIntSlice, i:int):int {.dynlib: "./fib.so", importc: "getGoIntSliceVal".}
+proc len(p: PGoIntSlice):int {.dynlib: "./fib.so", importc: "getGoIntSliceLen".}
 
-proc `@`(p: GoSlice):seq[int] =
+proc `@`(p: PGoIntSlice):seq[int] =
   let sliceLen = p.len()
   var s = newSeq[int](sliceLen)
   for i in 0..<sliceLen:
     s[i] = p[i]
   return s
 
-let p = fibo(10)
-echo @p
+proc fib(n:int):seq[int] =
+  return @(goFibo(n))
+
+echo fib(20)
