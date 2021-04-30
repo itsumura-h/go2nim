@@ -18,7 +18,7 @@ func fibLogic(n int) int {
 type GoIntSlice = []int
 type PGoIntSlice = uintptr
 
-var boxInstances map[uintptr]*GoIntSlice
+var boxInstances map[PGoIntSlice]*GoIntSlice
 
 //export fibo
 func fibo(n int) PGoIntSlice {

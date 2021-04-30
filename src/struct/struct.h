@@ -69,7 +69,7 @@ extern "C" {
 #endif
 
 extern GoUintptr NewUser(GoInt id, GoString name);
-extern int GetID(GoUintptr p);
+extern GoInt GetID(GoUintptr p);
 extern GoString GetName(GoUintptr p);
 
 #ifdef __cplusplus

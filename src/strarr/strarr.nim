@@ -12,6 +12,6 @@ proc `@`(p: PGoStrSlice):seq[cstring] =
   return s
 
 block:
-  let sArr = genStrSlice()
-  echo sArr.repr
-  echo @sArr
+  let sArr = @( genStrSlice() )
+  echo sArr
+  echo sArr[0]

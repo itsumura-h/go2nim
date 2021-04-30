@@ -8,7 +8,7 @@ import (
 type GoStrSlice = []string
 type PGoStrSlice = uintptr
 
-var boxInstances map[uintptr]*GoStrSlice
+var boxInstances map[PGoStrSlice]*GoStrSlice
 
 //export genStrSlice
 func genStrSlice() PGoStrSlice {

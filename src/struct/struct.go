@@ -6,40 +6,42 @@ import (
 	"unsafe"
 )
 
+type User struct {
+	ID   int
+	Name string
+}
+
+type PUser = uintptr
+
 // GCで削除されないように対策する
 // uintptrでメモリとして保持する
 // https://qiita.com/74th/items/0362bea2012ef253c539
-var boxInstances map[uintptr]*User
+var boxInstances map[PUser]*User
 
 func main() {
 	u := NewUser(1, "hoge")
 	fmt.Println(u)
 }
 
-type User struct {
-	ID   int
-	Name string
-}
-
 //export NewUser
-func NewUser(id int, name string) uintptr {
-	u := &User{ID: id, Name: name}
-	p := uintptr(unsafe.Pointer(u))
+func NewUser(id int, name string) PUser {
+	u := User{ID: id, Name: name}
+	p := PUser(unsafe.Pointer(&u))
 	if boxInstances == nil {
-		boxInstances = make(map[uintptr]*User)
+		boxInstances = make(map[PUser]*User)
 	}
-	boxInstances[p] = u
+	boxInstances[p] = &u
 	return p
 }
 
 //export GetID
-func GetID(p uintptr) C.int {
+func GetID(p PUser) int {
 	u := (*User)(unsafe.Pointer(p))
-	return C.int(u.ID)
+	return u.ID
 }
 
 //export GetName
-func GetName(p uintptr) string {
+func GetName(p PUser) string {
 	u := (*User)(unsafe.Pointer(p))
 	return u.Name
 }
